@@ -28,11 +28,15 @@ function ComparisonChart({ labels, datasets }: ComparisonChartProps) {
     myLineChart = new Chart(myChartRef, {
       type: 'line',
       data: {
-        labels: labels,
-        datasets: datasets,
+        datasets: datasets
       },
       options: {
         responsive: true,
+        tooltip:{
+          options:{
+            spanGaps:false
+          }
+        },
         maintainAspectRatio: false,
         interaction: {
           mode: 'index',
@@ -49,13 +53,16 @@ function ComparisonChart({ labels, datasets }: ComparisonChartProps) {
         },
         scales: {
           x: {
-            // display: false,
+            ticks:{
+              autoSkip:false,
+            }
           },
           y: {
             type: 'linear',
             display: true,
             position: 'left',
             ticks: {
+              beginAtZero: true,
               callback: function(value:number) {
                   return  value.toFixed(2) + "%";
               },

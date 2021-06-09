@@ -113,10 +113,7 @@ export default function Comparacao() {
     const diffs = rentabFunds.map((fund: any) => (
       
       fund.rentab.map((rentab: any) => {
-        // if(!rentab.diff) return;
-        // console.log(typeof(new Intl.NumberFormat('en-US',{style:'percent', maximumFractionDigits: 2}).format(rentab?.diff)));
-        // return new Intl.NumberFormat('en-US',{style:'percent', maximumFractionDigits: 2}).format(rentab?.diff)
-        return rentab.diff;
+        return {x: rentab.date, y:rentab.diff};
       })
     ))
 
@@ -135,10 +132,10 @@ export default function Comparacao() {
       backgroundColor: theme.colors.text,
       borderColor: theme.colors.text,
       data: cdiRentab.rentab.map((rentab: any) =>{
-        return rentab.diff;
+        return {x: rentab.date, y:rentab.diff};
       })
     }
-    setDatasets([...datasets, CDI]);
+    setDatasets([...datasets]);
   }, [rentabFunds, selectedFunds])
 
   const handleClickDetailButton = async (cnpj:any) => {
