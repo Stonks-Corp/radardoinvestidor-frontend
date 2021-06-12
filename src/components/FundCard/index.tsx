@@ -1,5 +1,4 @@
 import { forwardRef, useContext } from 'react';
-import {formatCnpj, formatCurrency} from 'utils/stringHelper';
 
 import {
   MdVisibility,

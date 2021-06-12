@@ -77,9 +77,19 @@ export default function Comparacao() {
   useEffect(() => {
     const fetchProfitability = async () => {
       try {
-        setIsLoading(true)
+        setIsLoading(true);
 
-        const selectedsCnpj = selectedFunds.map((fund) => fund.cnpj_fundo)
+        let selectedsCnpj: string[] = []
+        if(selectedFunds.length === 0){
+          if(!router.query?.fundos){
+            router.push('/');
+            return;
+          } 
+          selectedsCnpj = router.query.fundos.toString().split(',');
+          console.log(selectedsCnpj);
+        } else {
+          selectedsCnpj = selectedFunds.map((fund) => fund.cnpj_fundo);
+        }
 
         const { data } = await api.get('/rentabilidade', {
           params: {
@@ -88,7 +98,7 @@ export default function Comparacao() {
             to: new Date().toISOString().split("T")[0]
           }
         });
-        console.log(data);
+        console.log('vindo do banco', data);
         setRentabFunds(data)
       } catch (error) {
         console.error(error);
@@ -98,16 +108,15 @@ export default function Comparacao() {
     }
 
     fetchProfitability();
-  }, [])
+  }, [router.query.fundos])
 
   useEffect(() => {
-    const fundsCnpj: string[] = selectedFunds.map(fund => formatCnpj(fund.cnpj_fundo));
+    if(selectedFunds.length === 0) return;
+    const fundsCnpj: string[] = selectedFunds.map(fund => fund.cnpj_fundo);
     router.push({pathname: 'comparacao', query: {fundos: fundsCnpj.join(',')}});
   }, [selectedFunds])
 
   useEffect(() => {
-    if(!selectedFunds.length)
-      router.push("/");
     if (!rentabFunds.length) return;
 
     const firstFund = rentabFunds[0];
@@ -134,7 +143,6 @@ export default function Comparacao() {
     const cdiRentab:any = rentabFunds.find( fund =>
         fund.name === "CDI"
       )
-      console.log(cdiRentab);
     const CDI = {
       label: "CDI",
       backgroundColor: theme.colors.text,
