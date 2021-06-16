@@ -14,6 +14,7 @@ import FundCard from 'components/FundCard';
 import Loading from 'components/Loading';
 import Tabs from 'components/Tabs';
 import Tab from 'components/Tabs/Tab';
+import { formatCnpj } from 'utils/stringHelper';
 
 const Container = styled.div`
   height: 100%;
@@ -33,7 +34,14 @@ const List = styled.div`
 `;
 
 const BottomLoading = styled.div`
-  padding-top: 24px;
+  padding-top: 24px; 
+;
+`
+const BottomLoadingSearch = styled.div`
+    position: relative;
+    width: 100wv;
+    height: 40vh;
+;
 `
 
 const Footer = styled.footer`
@@ -94,8 +102,12 @@ export default function Home() {
     }
   }, [isLoading, hasMore, foundedFunds])
 
-  const handleRouteButtonClick = (route: string) => {
-    router.push(route);
+  const handleCompareButtonClick = () => {
+    const fundsCnpj: string[] = selectedFunds.map(fund => formatCnpj(fund.cnpj_fundo));
+    router.push({pathname: 'comparacao', query: {fundos: fundsCnpj.join(',')}});
+  };
+  const handleFilterButtonClick = () => {
+    router.push({pathname: 'filtro'});
   };
 
   const handleOnChangeText = async (searchText: string) => {
@@ -153,12 +165,14 @@ export default function Home() {
     <Screen>
       <Container>
         <Header>
-          <HeaderHome onChangeHandler={handleOnChangeText} router={handleRouteButtonClick} />
+          <HeaderHome onChangeHandler={handleOnChangeText} router={handleFilterButtonClick} />
         </Header>
         <Tabs>
           <Tab title="Encontrados">
             {isLoading && skip === 0 ? (
-              <Loading />
+              <BottomLoadingSearch>
+                 <Loading />
+              </BottomLoadingSearch>
             ) : (
               foundedFunds.length ? (
                 <List>
@@ -191,7 +205,7 @@ export default function Home() {
         <Footer>
           <SubmitButton
             isDisable={!selectedFunds.length}
-            onClick={() => handleRouteButtonClick('/comparacao')}
+            onClick={() => handleCompareButtonClick}
           >
             Comparar Fundos
           </SubmitButton>
