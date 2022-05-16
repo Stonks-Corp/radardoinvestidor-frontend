@@ -9,7 +9,7 @@ interface HeaderHomeProps {
 function HeaderHome({ onChangeHandler }: HeaderHomeProps) {
   return (
     <Container>
-      <img src="/logo-home.svg" style={{ paddingBottom: '20px' }} />
+      <img src="/logo-home.svg" style={{ paddingBottom: '20px' }} alt="Logo: Warren: Radar do Investidor" />
       <SearchBar onChange={onChangeHandler} />
       <FilterChip />
     </Container>
