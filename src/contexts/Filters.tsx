@@ -47,13 +47,6 @@ export const FilterProvider: React.FC = ({ children }) => {
     }
     setSelectedFilters(cache);
   };
-  useEffect(() => {
-    console.log(
-      'Equality ',
-      JSON.stringify(selectedFilters) === JSON.stringify(FilterEmpty)
-    );
-    // console.log("Diferences ",selectedFilters.filter(FilterEmpty));
-  }, [selectedFilters]);
   return (
     <FilterContext.Provider
       value={{

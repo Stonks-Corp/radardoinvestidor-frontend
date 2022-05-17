@@ -29,7 +29,6 @@ function ComparisonChart({ labels, datasets }: ComparisonChartProps) {
     myLineChart = new Chart(myChartRef, {
       type: 'line',
       data: {
-        // labels: labels,
         datasets: datasets,
       },
       options: {
@@ -65,12 +64,6 @@ function ComparisonChart({ labels, datasets }: ComparisonChartProps) {
         scales: {
           x: {
             display: false,
-            //  type: 'time',
-            // time: {
-            //     displayFormats: {
-            //         quarter: 'MMM YYYY'
-            //     }
-            // },
             ticks: {
               autoSkip: false,
             },

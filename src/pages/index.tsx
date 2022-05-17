@@ -132,10 +132,6 @@ export default function Home() {
   }, [debouncedSearchText]);
 
   useEffect(() => {
-    console.log('FOUNDED FUNDS', foundedFunds);
-  }, [foundedFunds]);
-
-  useEffect(() => {
     const fetchFunds = async () => {
       try {
         setIsLoading(true);
@@ -159,8 +155,6 @@ export default function Home() {
         }
 
         const { data } = await api.get('/pesquisa', parameters);
-
-        console.log('FETCHED FUNDS', debouncedSearchText, data);
         updateFetchedFunds(data);
         setHasMore(data.length > 0);
       } catch (e) {
