@@ -152,10 +152,6 @@ export default function Comparacao() {
       window.location.origin.concat(`/comparacao?fundos=${fundsCnpj.join(',')}`)
     );
 
-    // if (!!rentabFunds.length) {
-    //   return;
-    // }
-
     const fetchProfitability = async () => {
       try {
         setIsLoading(true);
@@ -237,8 +233,6 @@ export default function Comparacao() {
       setLabels(labels);
       setDatasets([...datasets, CDI]);
     }
-
-    console.log([...datasets, CDI]);
   }, [rentabFunds, selectedFunds, isToHiddenCDI]);
 
   const handleClickDetailButton = async (cnpj: any) => {

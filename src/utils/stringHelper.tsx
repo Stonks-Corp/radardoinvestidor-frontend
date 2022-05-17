@@ -53,7 +53,6 @@ export function formatFilterLabel(
   if (typeof filter === 'string' && type === 'classes') {
     switch (filter) {
       case 'Fundo de Renda Fixa':
-        console.log('aqui');
         return 'Renda Fixa';
       default:
         return filter;
