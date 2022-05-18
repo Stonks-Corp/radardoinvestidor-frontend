@@ -221,6 +221,18 @@ export default function Comparacao() {
           }),
     };
 
+    const SELIC = {
+      label: 'SELIC',
+      backgroundColor: theme.colors.iconSelected,
+      borderColor: theme.colors.iconSelected,
+      spanGaps: true,
+      data: isToHiddenCDI
+        ? []
+        : cdiRentab.rentab.map((rentab: any) => {
+            return { x: formatDate(rentab.date), y: rentab.diff };
+          }),
+    };
+
     if (isToHiddenCDI) {
       const firstFund = rentabFunds[0];
       const labels = firstFund.rentab.map((data: any) => formatDate(data.x));
@@ -231,7 +243,7 @@ export default function Comparacao() {
       const labels = cdiRentab.rentab.map((data: any) => formatDate(data.x));
 
       setLabels(labels);
-      setDatasets([...datasets, CDI]);
+      setDatasets([...datasets, CDI, SELIC]);
     }
   }, [rentabFunds, selectedFunds, isToHiddenCDI]);
 
