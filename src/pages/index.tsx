@@ -188,7 +188,7 @@ export default function Home() {
                       list.length === index + 1 ? lastFundElementRef : undefined
                     }
                     fund={fund}
-                    key={fund.denom_social}
+                    key={fund.denom_social + index}
                   />
                 ))}
                 {isLoading && hasMore && (
