@@ -174,45 +174,47 @@ export default function Home() {
         <Header>
           <HeaderHome onChangeHandler={handleOnChangeText} />
         </Header>
-        <Tabs>
-          <Tab title="Encontrados">
-            {isLoading && skip === 0 ? (
-              <BottomLoadingSearch>
-                <Loading />
-              </BottomLoadingSearch>
-            ) : foundedFunds.length ? (
-              <List>
-                {foundedFunds.map((fund, index, list) => (
-                  <FundCard
-                    ref={
-                      list.length === index + 1 ? lastFundElementRef : undefined
-                    }
-                    fund={fund}
-                    key={fund.denom_social}
-                  />
-                ))}
-                {isLoading && hasMore && (
-                  <BottomLoading>
-                    <Loading />
-                  </BottomLoading>
-                )}
-              </List>
-            ) : (
-              <Center>Nenhum fundo encontrado</Center>
-            )}
-          </Tab>
-          <Tab title={tabSelectedFunds}>
-            {selectedFunds.length ? (
-              <List>
-                {selectedFunds.map((fund) => (
-                  <FundCard isSelected fund={fund} key={fund.denom_social} />
-                ))}
-              </List>
-            ) : (
-              <Center>Nenhum fundo selecionado</Center>
-            )}
-          </Tab>
-        </Tabs>
+        <main>  
+          <Tabs>
+            <Tab title="Encontrados">
+              {isLoading && skip === 0 ? (
+                <BottomLoadingSearch>
+                  <Loading />
+                </BottomLoadingSearch>
+              ) : foundedFunds.length ? (
+                <List>
+                  {foundedFunds.map((fund, index, list) => (
+                    <FundCard
+                      ref={
+                        list.length === index + 1 ? lastFundElementRef : undefined
+                      }
+                      fund={fund}
+                      key={fund.denom_social}
+                    />
+                  ))}
+                  {isLoading && hasMore && (
+                    <BottomLoading>
+                      <Loading />
+                    </BottomLoading>
+                  )}
+                </List>
+              ) : (
+                <Center role='group'>Nenhum fundo encontrado</Center>
+              )}
+            </Tab>
+            <Tab title={tabSelectedFunds}>
+              {selectedFunds.length ? (
+                <List>
+                  {selectedFunds.map((fund) => (
+                    <FundCard isSelected fund={fund} key={fund.denom_social} />
+                  ))}
+                </List>
+              ) : (
+                <Center>Nenhum fundo selecionado</Center>
+              )}
+            </Tab>
+          </Tabs>
+        </main>
         <Footer>
           <SubmitButton
             isDisable={!selectedFunds.length}
