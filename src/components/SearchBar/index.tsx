@@ -23,7 +23,10 @@ function SearchBar({ onChange }: SearchBarProps) {
           placeholder={'Buscar'}
           onChange={(inputText) => onChange(inputText.target.value)}
         />
-        <Button onClick={handleFilterScreen}>
+        <Button
+          onClick={handleFilterScreen}
+          aria-label={'Adicionar filtros a pesquisa'}
+        >
           <MdFilterList size={24} color={theme.colors.text} />
         </Button>
       </Row>
