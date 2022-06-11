@@ -334,7 +334,7 @@ export default function Comparacao() {
                 isComparison
                 isSelected
                 fund={fund}
-                key={fund.denom_social}
+                key={fund.denom_social + index}
                 onClickDetails={() => handleClickDetailButton(fund.cnpj_fundo)}
               />
             ))}

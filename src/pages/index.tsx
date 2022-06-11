@@ -174,7 +174,7 @@ export default function Home() {
         <Header>
           <HeaderHome onChangeHandler={handleOnChangeText} />
         </Header>
-        <main>  
+        <main>
           <Tabs>
             <Tab title="Encontrados">
               {isLoading && skip === 0 ? (
@@ -186,10 +186,12 @@ export default function Home() {
                   {foundedFunds.map((fund, index, list) => (
                     <FundCard
                       ref={
-                        list.length === index + 1 ? lastFundElementRef : undefined
+                        list.length === index + 1
+                          ? lastFundElementRef
+                          : undefined
                       }
                       fund={fund}
-                      key={fund.denom_social}
+                      key={fund.denom_social + index}
                     />
                   ))}
                   {isLoading && hasMore && (
@@ -199,7 +201,7 @@ export default function Home() {
                   )}
                 </List>
               ) : (
-                <Center role='group'>Nenhum fundo encontrado</Center>
+                <Center role="group">Nenhum fundo encontrado</Center>
               )}
             </Tab>
             <Tab title={tabSelectedFunds}>

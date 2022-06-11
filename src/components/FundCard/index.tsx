@@ -65,7 +65,10 @@ const FundCard = forwardRef<HTMLDivElement, FundCardProps>(
             </FundTitle>
             <Actions>
               {isComparison && (
-                <IconButton onClick={() => handleHidden(fund)}>
+                <IconButton
+                  label="hide-fund"
+                  onClick={() => handleHidden(fund)}
+                >
                   {fund.hidden ? (
                     <MdVisibilityOff size={24} />
                   ) : (
@@ -73,7 +76,10 @@ const FundCard = forwardRef<HTMLDivElement, FundCardProps>(
                   )}
                 </IconButton>
               )}
-              <IconButton onClick={() => handleSelect(fund)}>
+              <IconButton
+                label="select-fund"
+                onClick={() => handleSelect(fund)}
+              >
                 {isSelected ? (
                   <MdDelete size={24}></MdDelete>
                 ) : (
