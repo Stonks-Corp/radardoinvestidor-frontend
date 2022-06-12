@@ -100,6 +100,7 @@ export default function Comparacao() {
       .split('T')[0]
   );
   const [isToHiddenCDI, setisToHiddenCDI] = useState(false);
+  const [isToHiddenSELIC, setisToHiddenSELIC] = useState(false);
 
   useEffect(() => {
     if (selectedFunds.length) {
@@ -204,6 +205,7 @@ export default function Comparacao() {
     }));
 
     const cdiRentab: any = rentabFunds.find((fund) => fund.name === 'CDI');
+    const selicRentab: any = rentabFunds.find((fund) => fund.name === 'SELIC');
 
     const labels = cdiRentab.rentab.map((cdi: any) => formatDate(cdi.x));
 
@@ -226,26 +228,34 @@ export default function Comparacao() {
       backgroundColor: theme.colors.iconSelected,
       borderColor: theme.colors.iconSelected,
       spanGaps: true,
-      data: isToHiddenCDI
+      data: isToHiddenSELIC
         ? []
-        : cdiRentab.rentab.map((rentab: any) => {
+        : selicRentab.rentab.map((rentab: any) => {
             return { x: formatDate(rentab.date), y: rentab.diff };
           }),
     };
 
+    const allDatasets = [...datasets, CDI, SELIC];
+    let labelsToShow = cdiRentab.rentab.map((data: any) => formatDate(data.x));
     if (isToHiddenCDI) {
-      const firstFund = rentabFunds[0];
-      const labels = firstFund.rentab.map((data: any) => formatDate(data.x));
+      const cdiIndex = allDatasets.findIndex((item) => item.label == 'CDI');
+      allDatasets.splice(cdiIndex, 1);
 
-      setLabels(labels);
-      setDatasets([...datasets]);
-    } else {
-      const labels = cdiRentab.rentab.map((data: any) => formatDate(data.x));
-
-      setLabels(labels);
-      setDatasets([...datasets, CDI, SELIC]);
+      const selicFund = rentabFunds[rentabFunds.length - 1];
+      labelsToShow = selicFund.rentab.map((data: any) => formatDate(data.x));
     }
-  }, [rentabFunds, selectedFunds, isToHiddenCDI]);
+
+    if (isToHiddenSELIC) {
+      const selicIndex = allDatasets.findIndex((item) => item.label == 'SELIC');
+      allDatasets.splice(selicIndex, 1);
+
+      const firstFund = rentabFunds[0];
+      labelsToShow = firstFund.rentab.map((data: any) => formatDate(data.x));
+    }
+
+    setDatasets(allDatasets);
+    setLabels(labelsToShow);
+  }, [rentabFunds, selectedFunds, isToHiddenCDI, isToHiddenSELIC]);
 
   const handleClickDetailButton = async (cnpj: any) => {
     const formatedCnpj = formatCnpj(cnpj);
@@ -266,9 +276,14 @@ export default function Comparacao() {
     setIsShareModalOpen(false);
   };
 
-  const handleToggle = () => {
+  const handleToggleCDI = () => {
     setisToHiddenCDI(!isToHiddenCDI);
   };
+
+  const handleToggleSELIC = () => {
+    setisToHiddenSELIC(!isToHiddenSELIC);
+  };
+
   const onChangeFilter = (value: string) => {
     const todaysDate = new Date();
     let data = '';
@@ -322,7 +337,9 @@ export default function Comparacao() {
             <DataFilter
               onChange={onChangeFilter}
               isToHiddenCDI={!isToHiddenCDI}
-              handleOnClick={handleToggle}
+              isToHiddenSELIC={!isToHiddenSELIC}
+              handleOnCDIClick={handleToggleCDI}
+              handleOnSELICClick={handleToggleSELIC}
             />
           </FilterContent>
           <Content>
