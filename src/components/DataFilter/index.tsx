@@ -4,13 +4,17 @@ import { Filter, CDIContainer, Container } from './styles';
 interface DataFilterProps {
   onChange: any;
   isToHiddenCDI: boolean;
-  handleOnClick: () => void;
+  isToHiddenSELIC: boolean;
+  handleOnCDIClick: () => void;
+  handleOnSELICClick: () => void;
 }
 
 const DataFilter = ({
   onChange,
   isToHiddenCDI,
-  handleOnClick,
+  isToHiddenSELIC,
+  handleOnCDIClick,
+  handleOnSELICClick,
 }: DataFilterProps) => {
   const [selectedFilter, setSelectedFilter] = useState('30D');
 
@@ -47,8 +51,14 @@ const DataFilter = ({
         TUDO
       </Filter>
       <CDIContainer>
-        <Filter isSelected={isToHiddenCDI} onClick={() => handleOnClick()}>
+        <Filter isSelected={isToHiddenCDI} onClick={() => handleOnCDIClick()}>
           CDI
+        </Filter>
+        <Filter
+          isSelected={isToHiddenSELIC}
+          onClick={() => handleOnSELICClick()}
+        >
+          SELIC
         </Filter>
       </CDIContainer>
     </Container>
